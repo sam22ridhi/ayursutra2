@@ -15,6 +15,10 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
+import AnimatedBackground from '../components/Home/AnimatedBackground';
+import MandalaGraphic from '../components/Home/MandalaGraphic';
+import PrakritiQuiz from '../components/Home/PrakritiQuiz';
+import SmartBooking from '../components/Home/SmartBooking';
 
 const Home: React.FC = () => {
   const features = [
@@ -85,70 +89,131 @@ const Home: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-mint-50">
+    <div className="min-h-screen relative">
+      <AnimatedBackground />
+      
       {/* Hero Section */}
       <section className="relative py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             {/* Main Icon */}
             <div className="flex justify-center mb-8">
-              <div className="relative">
-                <div className="p-6 bg-gradient-to-br from-sage-100 to-beige-100 rounded-full shadow-lg">
-                  <Leaf className="w-16 h-16 text-sage-600" />
-                </div>
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-teal-600 rounded-full flex items-center justify-center">
-                  <Brain className="w-3 h-3 text-white" />
-                </div>
-              </div>
+              <MandalaGraphic />
             </div>
 
             {/* Headlines */}
-            <h1 className="text-4xl lg:text-6xl font-serif font-bold text-charcoal mb-4">
+            <h1 className="text-4xl lg:text-6xl font-serif font-bold text-charcoal mb-2">
               AyurSutra
             </h1>
-            <h2 className="text-2xl lg:text-3xl font-serif text-sage-600 mb-6">
-              Intelligent Panchakarma, Simplified.
+            
+            {/* Hindi Tagline */}
+            <div className="mb-4">
+              <h2 className="text-2xl lg:text-4xl text-sage-600 mb-2" style={{ fontFamily: 'Teko, sans-serif', fontWeight: 600 }}>
+                संतुलन की ओर, आपका पहला कदम
+              </h2>
+              <p className="text-lg lg:text-xl text-gray-600 italic">
+                Your first step towards balance
+              </p>
+            </div>
+            
+            <h3 className="text-xl lg:text-2xl font-serif text-charcoal mb-6">
+              Intelligent Ayurveda for Modern Well-being
             </h2>
 
             {/* Description */}
-            <p className="text-lg lg:text-xl text-charcoal max-w-3xl mx-auto leading-relaxed mb-8">
-              Our AI-powered platform digitizes handwritten prescriptions, automates complex scheduling, 
-              and provides a seamless experience for doctors, therapists, and patients.
+            <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8">
+              Experience the perfect harmony of ancient Ayurvedic wisdom and cutting-edge AI technology. 
+              Discover your unique constitution, receive personalized guidance, and embark on a transformative healing journey.
             </p>
 
-            {/* CTA Button */}
-            <div className="flex justify-center mb-8">
+            {/* Dual CTA Buttons */}
+            <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
               <Link
-                to="/demo"
-                className="inline-flex items-center px-8 py-4 bg-teal-600 text-white font-semibold rounded-lg shadow-lg hover:bg-teal-700 hover:shadow-xl transition-all duration-300 group"
+                to="#booking"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="inline-flex items-center px-8 py-4 bg-teal-600 text-white font-semibold rounded-lg shadow-lg hover:bg-teal-700 hover:shadow-xl hover:scale-105 transition-all duration-300 group"
               >
-                Request a Free Demo
+                Book a Consultation
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
+              
+              <button
+                onClick={() => {
+                  document.getElementById('prakriti-quiz')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="inline-flex items-center px-8 py-4 border-2 border-sage-600 text-sage-600 font-semibold rounded-lg hover:bg-sage-600 hover:text-white hover:scale-105 transition-all duration-300 group"
+              >
+                Discover Your Dosha
+                <Sparkles className="ml-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
+              </button>
             </div>
 
             {/* Social Proof */}
-            <p className="text-sm text-gray-600">
-              Trusted by leading Panchakarma centers • 99% accuracy in HCR
+            <p className="text-sm text-gray-500">
+              Trusted by 500+ practitioners • 10,000+ healing journeys • Ancient wisdom, modern precision
             </p>
           </div>
         </div>
       </section>
 
-      {/* Core Features Section */}
-      <section id="features" className="py-20 bg-white">
+      {/* Prakriti Quiz Section */}
+      <section id="prakriti-quiz" className="py-20 bg-white/80 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-serif font-bold text-charcoal mb-4">
-              Your Complete Panchakarma Operating System
+              Who Are You? Uncover Your Ayurvedic Blueprint
             </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Take our scientifically-designed Prakriti assessment to discover your unique constitution 
+              and receive personalized wellness recommendations.
+            </p>
+          </div>
+          
+          <PrakritiQuiz onComplete={(result) => {
+            console.log('Quiz completed with result:', result);
+          }} />
+        </div>
+      </section>
+
+      {/* Smart Booking Section */}
+      <section id="booking" className="py-20 bg-gradient-to-br from-sage-50/50 to-beige-50/50 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-serif font-bold text-charcoal mb-4">
+              Begin Your Healing Journey
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Book your personalized consultation with our experienced Vaidyas. 
+              Choose your preferred service, timing, and practitioner in just a few clicks.
+            </p>
+          </div>
+          
+          <SmartBooking onBookingComplete={(bookingData) => {
+            console.log('Booking completed:', bookingData);
+          }} />
+        </div>
+      </section>
+
+      {/* Core Features Section */}
+      <section id="features" className="py-20 bg-white/90 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-serif font-bold text-charcoal mb-4">
+              The Complete Ayurvedic Wellness Ecosystem
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Five integrated pillars that work together to create your personalized healing experience
+            </p>
             <div className="w-24 h-1 bg-sage-600 mx-auto"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="group">
-                <div className="h-full p-6 bg-gradient-to-br from-sage-50 to-beige-50 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-sage-100">
+                <div className="h-full p-6 bg-white/80 backdrop-blur-sm rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-sage-100 group-hover:border-sage-300">
                   <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-sage-600 to-teal-600 text-white rounded-lg mb-6 group-hover:scale-110 transition-transform duration-300">
                     {feature.icon}
                   </div>
@@ -166,12 +231,15 @@ const Home: React.FC = () => {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 bg-mint-50">
+      <section id="how-it-works" className="py-20 bg-gradient-to-br from-mint-50/50 to-sage-50/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-serif font-bold text-charcoal mb-4">
-              How It Works
+              Your Journey in Three Simple Steps
             </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              From discovery to healing, we guide you through every step of your Ayurvedic wellness journey
+            </p>
             <div className="w-24 h-1 bg-sage-600 mx-auto"></div>
           </div>
 
@@ -179,7 +247,7 @@ const Home: React.FC = () => {
             {steps.map((step, index) => (
               <div key={index} className="text-center group">
                 <div className="relative mb-8">
-                  <div className="flex items-center justify-center w-20 h-20 bg-white rounded-full shadow-lg mx-auto group-hover:scale-110 transition-transform duration-300">
+                  <div className="flex items-center justify-center w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full shadow-lg mx-auto group-hover:scale-110 transition-transform duration-300">
                     <div className="text-sage-600">
                       {step.icon}
                     </div>
@@ -201,7 +269,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* For Doctors & Patients Sections */}
-      <section id="for-doctors" className="py-20 bg-white">
+      <section id="for-doctors" className="py-20 bg-white/90 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -240,7 +308,7 @@ const Home: React.FC = () => {
               </Link>
             </div>
             <div className="relative">
-              <div className="bg-gradient-to-br from-sage-100 to-beige-100 rounded-2xl p-8 shadow-lg">
+              <div className="bg-gradient-to-br from-sage-100/80 to-beige-100/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
                 <img 
                   src="https://images.pexels.com/photos/5327580/pexels-photo-5327580.jpeg?auto=compress&cs=tinysrgb&w=600" 
                   alt="Ayurvedic Doctor" 
@@ -252,11 +320,11 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section id="for-patients" className="py-20 bg-mint-50">
+      <section id="for-patients" className="py-20 bg-gradient-to-br from-mint-50/50 to-beige-50/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
-              <div className="bg-gradient-to-br from-beige-100 to-sage-100 rounded-2xl p-8 shadow-lg">
+              <div className="bg-gradient-to-br from-beige-100/80 to-sage-100/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
                 <img 
                   src="https://images.pexels.com/photos/6749753/pexels-photo-6749753.jpeg?auto=compress&cs=tinysrgb&w=600" 
                   alt="Patient receiving treatment" 
@@ -304,7 +372,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white/90 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-serif font-bold text-charcoal mb-4">
@@ -315,7 +383,7 @@ const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-gradient-to-br from-sage-50 to-beige-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+              <div key={index} className="bg-gradient-to-br from-sage-50/80 to-beige-50/80 backdrop-blur-sm rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
                 <div className="flex items-center mb-4">
                   <img 
                     src={testimonial.image} 
@@ -338,14 +406,38 @@ const Home: React.FC = () => {
       <section className="py-20 bg-gradient-to-br from-sage-600 to-teal-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-6">
-            Ready to bring intelligent healing to your center?
+            Ready to Transform Your Wellness Journey?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Join the future of Ayurvedic practice with AI-powered Panchakarma management
+            Experience the perfect blend of ancient wisdom and modern technology
           </p>
-          <Link
-            to="/demo"
-            className="inline-flex items-center px-8 py-4 bg-white text-teal-600 font-semibold rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 group"
+          <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <button
+              onClick={() => {
+                document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="inline-flex items-center px-8 py-4 bg-white text-teal-600 font-semibold rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 group"
+            >
+              Start Your Healing Journey
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+            
+            <Link
+              to="/demo"
+              className="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-teal-600 hover:scale-105 transition-all duration-300 group"
+            >
+              Book a Demo for Clinics
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default Home;
+
           >
             Schedule Your Personalized Demo Today
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
